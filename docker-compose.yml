@@ -1,0 +1,21 @@
+ services:
+  postgres:
+    image: postgres:latest
+    container_name: test_tusk_review
+    environment:
+      - 'POSTGRES_DB=test_tusk_review'
+      - 'POSTGRES_USER=postgres'
+      - 'POSTGRES_PASSWORD=test'
+    network_mode: bridge
+    ports:
+      - "5432:5432"
+
+  app:
+    image: 'my-app:latest'
+    ports:
+      - '8099:8099'
+    depends_on:
+      - postgres
+    network_mode: bridge
+    links:
+      - postgres
